@@ -1,5 +1,5 @@
 package Red_Black_Tree is
-   pragma Pure;
+   pragma Preelaborate;
 
    -- Custom types for algorithm-specific data to enforce strong typing.
    type Node_Key is new Integer range -1_000_000 .. 1_000_000;
