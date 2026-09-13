@@ -430,28 +430,25 @@ package body Red_Black_Tree is
       function Verify_Subtree (N : Node_Access; Black_Height : out Integer) return Boolean is
          Left_BH, Right_BH : Integer := 0;
       begin
+         Black_Height := 0; -- Ensures 'out' parameter is initialized on early return paths
          if N = null then
             Black_Height := 1;
             return True;
          end if;
          if N.Color = Red then
             if Color_Of (N.Left) = Red or else Color_Of (N.Right) = Red then
-               Black_Height := 0;
                return False;
             end if;
          end if;
          if N.Left /= null and then N.Left.Key >= N.Key then
-            Black_Height := 0;
             return False;
          end if;
          if N.Right /= null and then N.Right.Key <= N.Key then
-            Black_Height := 0;
             return False;
          end if;
          if not Verify_Subtree (N.Left, Left_BH) then return False; end if;
          if not Verify_Subtree (N.Right, Right_BH) then return False; end if;
          if Left_BH /= Right_BH then
-            Black_Height := 0;
             return False;
          end if;
          Black_Height := Left_BH + (if N.Color = Black then 1 else 0);
